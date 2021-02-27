@@ -227,6 +227,7 @@ BackFlip
 Backhand
 Backpackr
 Backtracking_INTERCAL
+Backwords
 Bag
 BAK
 BAM128
@@ -399,6 +400,7 @@ CalScript
 Camouflage
 Campfire
 CaneCode
+Cannoli
 CAPscript
 Capuirequiem
 Cardinal
@@ -1028,6 +1030,7 @@ McCulloch's_third_machine
 M-code
 Md5sha1fuck
 MDPN
+Meadow
 MechaniQue
 Memfractal
 Memfuck
@@ -1236,6 +1239,7 @@ Perpetuum_Mobile
 Petrovich
 Pewlang
 PHAWN
+PhD
 Phile
 Philosophy_Script
 PHL_1.0
@@ -1553,6 +1557,7 @@ Stopwatch
 Strato
 Strelnokoff
 Structure
+Struffoli
 Strvar
 Stu
 Stue

@@ -10,15 +10,16 @@ lines=f.read().splitlines()
 syntax=["import","echo"]
 data={}
 for lang in lines:
+    local={}
     url="https://esolangs.org/wiki/"+str(lang)
     page=requests.get(url)
     soup=BeautifulSoup(page.content,'html.parser')
     counter=1
     z=[]
     for sample in soup.findAll(['pre','code']):
-        t=urllib.parse.unquote(sample.text)
-        if len(t) > 10 and all(word not in str(t) for word in syntax):
-            z.append(str(urllib.parse.unquote(sample.text)))
+        t=str(urllib.parse.unquote(sample.text)).replace("\n","")
+        if len(t) > 10 and all(word not in t for word in syntax):
+            z.append(t)
             """print(urllib.parse.unquote(sample.text))
             print('\n')
             print(str(lang))
@@ -35,9 +36,9 @@ for lang in lines:
         print("Language is", str(lang))
         val=input("What all do you want to keep? Enter values of counter as a string: ")
         for i in val:
-            k=int(i)
-            print(z[k-1][:150])
-            #implement storage in a file
+            local["code"+str(i)]=z[int(i)-1]
+        print(local)
+            #implement storage in a file using dictionary
 
 
     """

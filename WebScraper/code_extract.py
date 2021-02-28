@@ -3,9 +3,10 @@ from bs4 import BeautifulSoup
 import urllib.parse
 import json
 import os
+import pprint
 
 
-f=open("database.txt","r")
+f=open("reduced_database.txt","r")
 lines=f.read().splitlines()
 syntax=["import","echo"]
 data={}
@@ -20,10 +21,6 @@ for lang in lines:
         t=str(urllib.parse.unquote(sample.text)).replace("\n","")
         if len(t) > 10 and all(word not in t for word in syntax):
             z.append(t)
-            """print(urllib.parse.unquote(sample.text))
-            print('\n')
-            print(str(lang))
-            print("-----------------------")"""
     if len(z)>=1:
         for j in z:
             print()
@@ -35,18 +32,12 @@ for lang in lines:
         print()
         print("Language is", str(lang))
         val=input("What all do you want to keep? Enter values of counter as a string: ")
+        m=1
         for i in val:
-            local["code"+str(i)]=z[int(i)-1]
-        print(local)
-            #implement storage in a file using dictionary
+            local["code"+str(m)]=z[int(i)-1]
+            m=m+1
+        data[str(lang)]=local
+        os.system('cls' if os.name == 'nt' else 'clear')
 
-
-    """
-            val=input("Do you want to keep this? y/n ")
-            if val=="y" :
-                print("yos")
-                os.system('cls' if os.name == 'nt' else 'clear')
-            else:
-                print("gg")
-                os.system('cls' if os.name == 'nt' else 'clear')
-    """
+pprint.pprint(data)
+#implement storage in a file using dictionary

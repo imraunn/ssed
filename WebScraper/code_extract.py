@@ -40,7 +40,7 @@ def call_func():
                 print("-----------------------")
             print()
             print("Language is", str(lang))
-            val=input("What all do you want to keep? Enter values of counter as a string: ")
+            val=input("Use q to quit, x followed by keyword for interpreter filter || Enter values of counter to save: ")
             m=1
             if val[0]=="x":
                 filter=val[1:]

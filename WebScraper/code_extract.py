@@ -40,11 +40,13 @@ def call_func():
                 print("-----------------------")
             print()
             print("Language is", str(lang))
-            val=input("Use q to quit, x followed by keyword for interpreter filter || Enter values of counter to save: ")
+            val=input("q,x,r (use space as separator) || Enter values of counter to save: ")
             m=1
             if val[0]=="x":
-                filter=val[1:]
-                syntax.append(filter)
+                filter=val[2:]
+                splits=filter.split()
+                for element in splits:
+                    syntax.append(element)
                 write_syntax()
                 os.system('cls' if os.name == 'nt' else 'clear')
                 call_func()
@@ -54,8 +56,12 @@ def call_func():
                 with open('last_lang.txt','w') as f:
                     f.write(str(lang))
                 sys.exit()
+            elif val[0]=="r":
+                with open('review_later.txt','a+') as filehandle:
+                    filehandle.write(str(lang)+"\n")
+                    os.system('cls' if os.name == 'nt' else 'clear')
             else:
-                for i in val:
+                for i in val.split():
                     local["code"+str(m)]=z[int(i)-1]
                     m=m+1
                     data[str(lang)]=local

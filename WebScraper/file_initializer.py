@@ -6,3 +6,4 @@ with open('lang_dump_database.txt', 'w') as filehandle:
 with open('syntax.txt', 'w') as filehandle:
       json.dump(syntax, filehandle)
 open('last_lang.txt', 'w').close()
+open('review_later.txt', 'w').close()

@@ -1,9 +1,9 @@
 import json
 syntax=[]
 data={}
-with open('lang_dump_database.txt', 'w') as filehandle:
+with open('./storage/lang_dump_database.txt', 'w') as filehandle:
     json.dump(data, filehandle)
-with open('syntax.txt', 'w') as filehandle:
+with open('./storage/syntax.txt', 'w') as filehandle:
       json.dump(syntax, filehandle)
-open('last_lang.txt', 'w').close()
-open('review_later.txt', 'w').close()
+open('./storage/last_lang.txt', 'w').close()
+open('./storage/review_later.txt', 'w').close()

@@ -7,15 +7,15 @@ import pprint
 import sys
 
 
-f=open("reduced_database.txt","r")
+f=open("./storage/reduced_database.txt","r")
 lines=f.read().splitlines()
 #syntax=["import","echo"]
 
 def write_syntax():
-    with open('syntax.txt', 'w') as filehandle:
+    with open('./storage/syntax.txt', 'w') as filehandle:
           json.dump(syntax, filehandle)
 def read_syntax():
-    with open('syntax.txt', 'r') as filehandle:
+    with open('./storage/syntax.txt', 'r') as filehandle:
         global syntax
         syntax = json.load(filehandle)
 read_syntax()
@@ -40,7 +40,7 @@ def call_func():
                 print("-----------------------")
             print()
             print("Language is", str(lang))
-            val=input("q,x,r (use space as separator) || Enter values of counter to save: ")
+            val=input("q,x,r (use space as separator) || Enter lang type (w,c) and values of counter to save: ")
             m=1
             if val[0]=="x":
                 filter=val[2:]
@@ -51,30 +51,33 @@ def call_func():
                 os.system('cls' if os.name == 'nt' else 'clear')
                 call_func()
             elif val[0]=="q":
-                with open('lang_dump_database.txt','w') as filehandle:
+                with open('./storage/lang_dump_database.txt','w') as filehandle:
                     json.dump(data, filehandle)
-                with open('last_lang.txt','w') as f:
+                with open('./storage/last_lang.txt','w') as f:
                     f.write(str(lang))
                 sys.exit()
             elif val[0]=="r":
-                with open('review_later.txt','a+') as filehandle:
+                with open('./storage/review_later.txt','a+') as filehandle:
                     filehandle.write(str(lang)+"\n")
                     os.system('cls' if os.name == 'nt' else 'clear')
             else:
-                for i in val.split():
+                type=val[0]
+                local["type"]=type
+                values_entered=val[2:]
+                for i in values_entered.split():
                     local["code"+str(m)]=z[int(i)-1]
                     m=m+1
                     data[str(lang)]=local
                     os.system('cls' if os.name == 'nt' else 'clear')
-with open('last_lang.txt','r') as f:
+with open('./storage/last_lang.txt','r') as f:
     last_lang=f.read().rstrip()
 if last_lang=="":
     last_lang="!!!"
-with open('lang_dump_database.txt','r') as filehandle:
+with open('./storage/lang_dump_database.txt','r') as filehandle:
     data = json.load(filehandle)
 for lang in lines[lines.index(last_lang):]:
     call_func()
 pprint.pprint(data)
-with open('lang_dump_database.txt','w') as filehandle:
+with open('./storage/lang_dump_database.txt','w') as filehandle:
     json.dump(data, filehandle)
 #implement storage in a file using dictionary

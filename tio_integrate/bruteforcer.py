@@ -1,7 +1,7 @@
 from Tio import Tio
 site=Tio()
 input=input()
-request=site.new_request('cpp-gcc',input)
+request=site.new_request('python3',input)
 output=site.send(request)
 flag="Exit code: "
 if flag in output:

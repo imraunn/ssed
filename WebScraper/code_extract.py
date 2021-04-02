@@ -5,11 +5,11 @@ import json
 import os
 import pprint
 import sys
-
+from freqanalysis import charset_gen,wordlist_gen
 
 f=open("./storage/reduced_database.txt","r")
 lines=f.read().splitlines()
-#syntax=["import","echo"]
+
 
 def write_syntax():
     with open('./storage/syntax.txt', 'w') as filehandle:
@@ -64,11 +64,23 @@ def call_func():
                 type=val[0]
                 local["type"]=type
                 values_entered=val[2:]
+                storage_charset=set()
+                storage_wordset=set()
                 for i in values_entered.split():
-                    local["code"+str(m)]=z[int(i)-1]
+                    if type == "c":
+                        tmp_charset=set(charset_gen(z[int(i)-1]))
+                        storage_charset=storage_charset.union(set(tmp_charset))
+                        local["code"+str(m)]=z[int(i)-1][100:] #reduced to 100 char storage for charset esolang
+                    if type == "w":
+                        local["code"+str(m)]=z[int(i)-1]
+                        storage_wordset=storage_wordset.union(set(wordlist_gen(z[int(i)-1])))
                     m=m+1
-                    data[str(lang)]=local
-                    os.system('cls' if os.name == 'nt' else 'clear')
+                data[str(lang)]=local
+                if type == "c":
+                    local["charset"]=list(storage_charset)
+                if type == "w":
+                    local["wordset"]=list(storage_wordset)
+                os.system('cls' if os.name == 'nt' else 'clear')
 with open('./storage/last_lang.txt','r') as f:
     last_lang=f.read().rstrip()
 if last_lang=="":

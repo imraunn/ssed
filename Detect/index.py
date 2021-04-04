@@ -1,4 +1,5 @@
 import json
+import re
 from collections import Counter
 
 def charset_gen(input):
@@ -8,6 +9,9 @@ def charset_gen(input):
         if element not in [" ","\n"]:
             charsetlist.append(element)
     return charsetlist
+def wordlist_gen(input):
+    return input.split()
+
 def math_freq(charset_input,charset_database):
     a=len(charset_database)
     b=len(charset_input)
@@ -48,9 +52,23 @@ if type=="c":
     print("{:<50} {:<50}".format('Percentage','Language'))
     print()
     for row in sort_frac_values:
-        leng=len(lang)
-        val=50-leng
         print("{:<50} {:<50}".format(round(row[1]*100),row[0]))
     print()
 elif type=="w":
-    print("word type in progress")
+    wordset_input=wordlist_gen(code)
+    for lang in database.keys():
+        langval=0
+        if (database[lang])["type"] == "w":
+            wordset_database=(database[lang])["wordset"]
+            for word in wordset_input:
+                for compare in wordset_database:
+                    regex_exp="(?i)^"+word+"$"
+                    if bool(re.search(regex_exp,compare))==True and len(word)>=2:
+                        langval=langval+1
+            frac_values[lang]=langval
+    sort_frac_values = sorted(frac_values.items(), key=lambda x: x[1], reverse=True)
+    print("{:<50} {:<50}".format('Hits','Language'))
+    print()
+    for row in sort_frac_values:
+        print("{:<50} {:<50}".format(round(row[1]),row[0]))
+    print()

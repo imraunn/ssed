@@ -59,39 +59,42 @@ code=file_input
 frac_values={}
 
 if type=="c":
+    pos=0
     charset_input=charset_gen(code)
     for lang in database.keys():
         if (database[lang])["type"] == "c":
             charset_database=(database[lang])["charset"]
             perc=math_freq(charset_input,charset_database)
             frac_values[lang]=perc
+            if perc>0:
+                pos=pos+1
     sort_frac_values = sorted(frac_values.items(), key=lambda x: x[1], reverse=True)
     print("{:<50} {:<50}".format('Percentage','Language'))
     print()
     top=1
     for row in sort_frac_values:
-        if top<=10:
-            print("{:<50} {:<50}".format(round(row[1]*100),"https://esolangs.org/wiki/"+row[0]))
+        if top<=pos:
+            print("{:<50} {:<50}".format(format(row[1]*100,".3f"),"https://esolangs.org/wiki/"+row[0]))
             top=top+1
-        elif top==11:
+    if top==pos+1:
+        print()
+        yon=input("Would you like to view the code of any of the above language? (y/n) ")
+        if yon=="y":
+            ranking=input("Which language? Please enter the position in ranking: ")
+            nameoflang=sort_frac_values[int(ranking)-1][0]
             print()
-            yon=input("Would you like to view the code of any of the above language? (y/n) ")
-            if yon=="y":
-                top=top+1
-                ranking=input("Which language? Please enter the position in ranking: ")
-                nameoflang=sort_frac_values[int(ranking)-1][0]
-                print()
-                print(nameoflang)
-                print()
-                local=database[nameoflang]
-                for key in local.keys():
-                    if "charset" in key:
-                        print(local[key])
-                        print()
-            else:
-                print()
-                exit()
+            print(nameoflang)
+            print()
+            local=database[nameoflang]
+            for key in local.keys():
+                if "charset" in key:
+                    print(local[key])
+                    print()
+        else:
+            print()
+            exit()
 elif type=="w":
+    hitcount=0
     wordset_input=wordlist_gen(code)
     for lang in database.keys():
         langval=0
@@ -102,30 +105,31 @@ elif type=="w":
                     regex_exp="(?i)^"+word+"$"
                     if bool(re.search(regex_exp,compare))==True and len(word)>=2:
                         langval=langval+1
+            if langval>0:
+                hitcount=hitcount+1
             frac_values[lang]=langval
     sort_frac_values = sorted(frac_values.items(), key=lambda x: x[1], reverse=True)
     print("{:<50} {:<50}".format('Hits','Language'))
     print()
     top=1
     for row in sort_frac_values:
-        if top<=10:
+        if top<=hitcount:
             print("{:<50} {:<50}".format(round(row[1]),"https://esolangs.org/wiki/"+row[0]))
             top=top+1
-        elif top==11:
+    if top==hitcount+1:
+        print()
+        yon=input("Would you like to view the codes of any of the above language? (y/n) ")
+        if yon=="y":
+            ranking=input("Which language? Please enter the position in ranking: ")
+            nameoflang=sort_frac_values[int(ranking)-1][0]
             print()
-            yon=input("Would you like to view the codes of any of the above language? (y/n) ")
-            if yon=="y":
-                top=top+1
-                ranking=input("Which language? Please enter the position in ranking: ")
-                nameoflang=sort_frac_values[int(ranking)-1][0]
-                print()
-                print(nameoflang)
-                print()
-                local=database[nameoflang]
-                for key in local.keys():
-                    if "wordset" in key:
-                        print(local[key])
-                        print()
-            else:
-                print()
-                exit()
+            print(nameoflang)
+            print()
+            local=database[nameoflang]
+            for key in local.keys():
+                if "wordset" in key:
+                    print(local[key])
+                    print()
+        else:
+            print()
+            exit()

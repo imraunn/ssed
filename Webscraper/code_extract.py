@@ -7,7 +7,7 @@ import pprint
 import sys
 from freqanalysis import charset_gen,wordlist_gen
 
-f=open("./storage/reduced_database.txt","r")
+f=open("./langlist_scraper/database.txt","r")
 lines=f.read().splitlines()
 
 
@@ -63,7 +63,7 @@ def call_func():
             elif val[0]=="m":
                 type=val[1]
                 if type == "c":
-                    local["type"]="c"#only_char_is_manual
+                    local["type"]="c"
                     values_entered=val[3:]
                     char_list=[]
                     for element in values_entered:
@@ -87,7 +87,7 @@ def call_func():
                     if type == "c":
                         tmp_charset=set(charset_gen(z[int(i)-1]))
                         storage_charset=storage_charset.union(set(tmp_charset))
-                        local["code"+str(m)]=z[int(i)-1][100:] #reduced to 100 char storage for charset esolang
+                        local["code"+str(m)]=z[int(i)-1][100:]
                     if type == "w":
                         local["code"+str(m)]=z[int(i)-1]
                         storage_wordset=storage_wordset.union(set(wordlist_gen(z[int(i)-1])))
@@ -100,7 +100,7 @@ def call_func():
                 os.system('cls' if os.name == 'nt' else 'clear')
 with open('./storage/last_lang.txt','r') as f:
     last_lang=f.read().rstrip()
-with open('./storage/reduced_database.txt','r') as f:
+with open('./langlist_scraper/database.txt','r') as f:
     firstline=f.readline().strip()
 if last_lang=="":
     last_lang=firstline
@@ -111,4 +111,3 @@ for lang in lines[lines.index(last_lang):]:
 pprint.pprint(data)
 with open('./storage/lang_dump_database.txt','w') as filehandle:
     json.dump(data, filehandle)
-#implement storage in a file using dictionary

@@ -28,7 +28,7 @@ def call_func():
         z=[]
         for sample in soup.findAll(['pre','code']):
             t=str(urllib.parse.unquote(sample.text)).replace("\n","")
-            if len(t) > 10 and all(word not in t for word in syntax):
+            if all(word not in t for word in syntax):
                 z.append(t)
         if len(z)>=1:
             for j in z:
@@ -40,7 +40,7 @@ def call_func():
                 print("-----------------------")
             print()
             print("Language is", str(lang))
-            val=input("q,x,r (use space as separator) || Enter lang type (w,c) and values of counter to save: ")
+            val=input("q,x,r,m (use space as separator) || Enter lang type (w,c) and values of counter to save: ")
             m=1
             if val[0]=="x":
                 filter=val[2:]
@@ -60,6 +60,23 @@ def call_func():
                 with open('./storage/review_later.txt','a+') as filehandle:
                     filehandle.write(str(lang)+"\n")
                     os.system('cls' if os.name == 'nt' else 'clear')
+            elif val[0]=="m":
+                type=val[1]
+                if type == "c":
+                    local["type"]="c"#only_char_is_manual
+                    values_entered=val[3:]
+                    char_list=[]
+                    for element in values_entered:
+                        if element not in char_list:
+                            char_list.append(element)
+                    local["charset"]=char_list
+                elif type == "w":
+                    local["type"]="w"
+                    words_entered=val[3:]
+                    list_tmp=words_entered.split()
+                    local["wordset"]=list_tmp
+                data[str(lang)]=local
+                os.system('cls' if os.name == 'nt' else 'clear')
             else:
                 type=val[0]
                 local["type"]=type
@@ -83,8 +100,10 @@ def call_func():
                 os.system('cls' if os.name == 'nt' else 'clear')
 with open('./storage/last_lang.txt','r') as f:
     last_lang=f.read().rstrip()
+with open('./storage/reduced_database.txt','r') as f:
+    firstline=f.readline().strip()
 if last_lang=="":
-    last_lang="!!!"
+    last_lang=firstline
 with open('./storage/lang_dump_database.txt','r') as filehandle:
     data = json.load(filehandle)
 for lang in lines[lines.index(last_lang):]:

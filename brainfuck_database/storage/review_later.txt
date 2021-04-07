@@ -1,8 +1,0 @@
-Ecstatic
-Golunar
-Lenguage
-OOo_CODE
-Pi
-TrivialBrainfuckSubstitution
-Wordfuck
-ZeroBF

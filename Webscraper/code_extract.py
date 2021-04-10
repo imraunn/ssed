@@ -7,15 +7,15 @@ import pprint
 import sys
 from freqanalysis import charset_gen,wordlist_gen
 
-f=open("./langlist_scraper/database.txt","r")
+f=open("./langlist_scraper/database.txt","r",encoding="utf-8")
 lines=f.read().splitlines()
 
 
 def write_syntax():
-    with open('./storage/syntax.txt', 'w') as filehandle:
+    with open('./storage/syntax.txt', 'w',encoding="utf-8") as filehandle:
           json.dump(syntax, filehandle)
 def read_syntax():
-    with open('./storage/syntax.txt', 'r') as filehandle:
+    with open('./storage/syntax.txt', 'r',encoding="utf-8") as filehandle:
         global syntax
         syntax = json.load(filehandle)
 read_syntax()
@@ -51,13 +51,13 @@ def call_func():
                 os.system('cls' if os.name == 'nt' else 'clear')
                 call_func()
             elif val[0]=="q":
-                with open('./storage/lang_dump_database.txt','w') as filehandle:
+                with open('./storage/lang_dump_database.txt','w',encoding="utf-8") as filehandle:
                     json.dump(data, filehandle)
-                with open('./storage/last_lang.txt','w') as f:
+                with open('./storage/last_lang.txt','w',encoding="utf-8") as f:
                     f.write(str(lang))
                 sys.exit()
             elif val[0]=="r":
-                with open('./storage/review_later.txt','a+') as filehandle:
+                with open('./storage/review_later.txt','a+',encoding="utf-8") as filehandle:
                     filehandle.write(str(lang)+"\n")
                     os.system('cls' if os.name == 'nt' else 'clear')
             elif val[0]=="m":
@@ -98,16 +98,16 @@ def call_func():
                 if type == "w":
                     local["wordset"]=list(storage_wordset)
                 os.system('cls' if os.name == 'nt' else 'clear')
-with open('./storage/last_lang.txt','r') as f:
+with open('./storage/last_lang.txt','r',encoding="utf-8") as f:
     last_lang=f.read().rstrip()
-with open('./langlist_scraper/database.txt','r') as f:
+with open('./langlist_scraper/database.txt','r',encoding="utf-8") as f:
     firstline=f.readline().strip()
 if last_lang=="":
     last_lang=firstline
-with open('./storage/lang_dump_database.txt','r') as filehandle:
+with open('./storage/lang_dump_database.txt','r',encoding="utf-8") as filehandle:
     data = json.load(filehandle)
 for lang in lines[lines.index(last_lang):]:
     call_func()
 pprint.pprint(data)
-with open('./storage/lang_dump_database.txt','w') as filehandle:
+with open('./storage/lang_dump_database.txt','w',encoding="utf-8") as filehandle:
     json.dump(data, filehandle)

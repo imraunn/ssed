@@ -6,7 +6,7 @@ A semi-smart python3 project that detects with high accuracy the type of Esolang
 
 ## Installation
 
-1)`git clone https://github.com/justanothern00b/ssed.git`
+1)`git clone https://github.com/imraunn/ssed.git`
 
 2)`cd ssed`
 
